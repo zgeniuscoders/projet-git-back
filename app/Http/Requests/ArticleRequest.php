@@ -26,7 +26,7 @@ class ArticleRequest extends FormRequest
             "photo" => ["required", "url"],
             "auteur" => ["required", "string"],
             "content" => ["required", "string", "min:100"],
-            "category_id" => ["required", "exists:categories,id"]
+            "categories" => ["required", "array"]
         ];
     }
 }
