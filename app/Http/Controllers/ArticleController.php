@@ -6,7 +6,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
-//use Str marche egalement mais c'est mieux de faire appel a Str depuis sa source 
+//use Str marche egalement mais c'est mieux de faire appel a Str depuis sa source
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
@@ -22,6 +22,7 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request)
     {
+
         try {
             $article = Article::create([
                 "title" => $request->title,
@@ -30,18 +31,18 @@ class ArticleController extends Controller
                 "auteur" => $request->auteur,
                 "content" => $request->content,
             ]);
-            
-            $article->categories()->attach($request->category_id);
-            
+
+            $article->categories()->attach($request->categories);
+
             return response()->json($article->load('categories'), 201);
         } catch (\Exception $th) {
             return response()->json($th->getMessage(),500);
         }
-       
-        
+
+
     }
 
- 
+
     public function show( Article $article)
     {
         return new ArticleResource($article->load('categories'));
@@ -73,9 +74,9 @@ class ArticleController extends Controller
     {
         try {
             // Détacher toutes les catégories
-            $article->categories()->detach(); 
+            $article->categories()->detach();
             // Supprimer l'article
-            $article->delete(); 
+            $article->delete();
 
             return response()->json(['message' => 'Article supprimé avec succès'], 200);
         } catch (\Exception $th) {
