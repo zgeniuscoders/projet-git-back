@@ -21,7 +21,7 @@ class NewsletterController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'email' => 'required|email'
+            'email' => 'required|email|unique:newsletters'
         ]);
 
         return Newsletter::create([
@@ -32,24 +32,30 @@ class NewsletterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Newsletter $newsletter)
     {
-        //
+        return $newsletter;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Newsletter $newsletter)
     {
-        //
+        $validate = $request->validate([
+            'email' => 'required|email|unique:newsletters'
+        ]);
+
+        return $newsletter->update([
+            'email' => $validate['email']
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Newsletter $newsletter)
     {
-        //
+        $newsletter->delete();
     }
 }
