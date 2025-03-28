@@ -24,19 +24,20 @@ class ArticleResource extends JsonResource
          */
         Carbon::setLocale('fr'); // Définir la langue en français
 
-         return [
+        return [
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
             "photo" => $this->photo,
             "auteur" => $this->auteur,
             "content" => $this->content,
-            'nbr_comment' => $this->comments->count(), 
-            'comments' => CommentResource::collection($this->comments), 
+            'nbr_comment' => $this->comments->count(),
+            'nb_likes' => $this->likes_count,
+            'comments' => CommentResource::collection($this->comments),
             'category' => CategoryResource::collection($this->categories),
             'date_creation' => Carbon::parse($this->created_at)->diffForHumans(),
             'last_modif' => $this->updated_at,
         ];
-        
+
     }
 }
