@@ -14,6 +14,6 @@ class ArticleLikeController extends Controller
     public function __invoke(ArticleLikeRequest $request)
     {
         $a = Article::query()->findOrFail($request->articleId);
-        $a->likes()->toggle([1]);
+        $a->likes()->toggle([$request->user()->id]);
     }
 }
