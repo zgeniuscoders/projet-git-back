@@ -65,7 +65,6 @@ class AuthController extends Controller
             $token = $user->createToken('token')->plainTextToken;
             $user['token'] = $token;
             return response()->json([
-
                 'data' => $user,
             ], 201);
         } catch (\Exception $exception) {
