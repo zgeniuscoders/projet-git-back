@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleLikeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
