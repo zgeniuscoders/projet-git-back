@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('likes', ArticleLikeController::class);
 });
 
+// a  mettre dans le route proteger
+
 Route::apiResource('/articles', ArticleController::class);
 Route::apiResource('/categories', CategoryController::class);
 Route::apiResource('/comments', CommentController::class);
