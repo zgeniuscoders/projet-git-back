@@ -14,6 +14,7 @@ class CommentController extends Controller
     public function index()
     {
         $commment = Comment::orderBy('created_at', 'desc')->get();
+        //filtrer
 
         return CommentResource::collection($comment);
     }
