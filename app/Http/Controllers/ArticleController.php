@@ -14,7 +14,8 @@ class ArticleController extends Controller
 
     public function index()
     {
-        //return ArticleResource::collection(Article::paginate(1));
+        //return ArticleResource::collection(Article::paginate(1));<<<<<<< dev
+   
         return ArticleResource::collection(Article::withCount(['likes'])->paginate(10));
         // return Article::all();
     }

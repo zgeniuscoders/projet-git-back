@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
@@ -12,9 +13,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $commment = Comment::all();
+        $commment = Comment::orderBy('created_at', 'desc')->get();
+        //filtrer
 
-        return $commment;
+        return CommentResource::collection($comment);
     }
 
     /**
