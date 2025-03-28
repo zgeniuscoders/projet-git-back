@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleLikeController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
@@ -27,7 +29,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route securisée
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('likes', ArticleLikeController::class);
 });
 
 Route::apiResource('/articles', ArticleController::class);
@@ -35,25 +38,6 @@ Route::apiResource('/categories', CategoryController::class);
 Route::apiResource('/comments', CommentController::class);
 Route::apiResource('/newsletter' , NewsletterController::class);
 
-Route::post('/login', function (Request $request) {
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
-
-    $user = User::where('email', $request->email)->first();
-
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-        return response()->json([
-            'Message erreur :' => 'Email ou mot de passe incorrect'
-        ]);
-    }
-
-    $token = $user->createToken($request->email)->plainTextToken;
-    $user->token =$token;
-
-    return response()->json([
-        'token' => $user
-    ]);
-});
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
