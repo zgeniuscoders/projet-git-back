@@ -12,7 +12,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $commment = Comment::all();
+        $commment = Comment::orderBy('created_at', 'desc') -> get();
 
         return $commment;
     }
